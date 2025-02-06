@@ -9,11 +9,11 @@ const resetPass = async (req,res)=>{
     const {password, confirmPassword, token} = req.body;
 
     if(!password || !confirmPassword || !token){
-        return res.json({ message: 'password, confirmPassword and token are required' });
+        return res.status(400).json({ message: 'password, confirmPassword and token are required' });
     }
 
     if(password != confirmPassword){
-        return res.json({message: 'Passwords do not match'});
+        return res.status(400).json({message: 'Passwords do not match'});
     }
 
     try {
@@ -30,7 +30,7 @@ const resetPass = async (req,res)=>{
         res.status(200).json({ message: 'Password reset successfully' });
 
     } catch (error) {
-        res.status(400).json({ message: 'Invalid or expired token' });
+        res.status(500).json({ message: 'Something went wrong', error });
     }
 }
 

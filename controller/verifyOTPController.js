@@ -7,7 +7,7 @@ const verifyOTP = async (req,res) => {
     const {otp, token} = req.body;
 
     if(!otp||!token){
-        return res.json({ message: 'OTP and token are required' });
+        return res.status(400).json({ message: 'OTP and token are required' });
     }
     try {
         const decodedToken = jwt.verify(token,process.env.JWT_SECRET);
@@ -15,12 +15,12 @@ const verifyOTP = async (req,res) => {
 
         const findOTP = await OTP.findOne({email});
         if(!findOTP){
-            return res.json({ message: 'OTP expired or not found' });
+            return res.status(400).json({ message: 'OTP expired or not found' });
         }
 
         const ifOTPMatch = await bcrypt.compare(otp,findOTP.otp);
         if(!ifOTPMatch){
-            return res.json({ message: 'Invalid OTP' });
+            return res.status(400).json({ message: 'Invalid OTP' });
         }
 
         await OTP.deleteOne({email});

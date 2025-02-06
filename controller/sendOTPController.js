@@ -22,12 +22,12 @@ const sendOTP = async (req,res) => {
     const {email} = req.body;
     
     if(!email){
-        return res.json({message: 'Email is required'});
+        return res.status(400).json({message: 'Email is required'});
     }
     const user = await User.findOne({email});
 
     if(!user){
-        return res.json({message: 'Invalid email'});
+        return res.status(400).json({message: 'Invalid email'});
     }
 
     
@@ -43,7 +43,7 @@ const sendOTP = async (req,res) => {
             from: process.env.AUTH_EMAIL,
             to: email,
             subject: 'Passwored Reset OTP',
-            text: `Your OTP for password reset is ${otp}`
+            text: `Your OTP for password reset is ${otp}. It will expire in 5 minutes.`
         };
         transporter.sendMail(mailOptions, (err,info)=>{
             if(err){
@@ -52,7 +52,7 @@ const sendOTP = async (req,res) => {
             res.status(200).json({message: 'OTP sent to your email successfully!',token});
         })
     } catch (error) {
-        res.json({message: 'Something went wrong',error});
+        res.status(500).json({message: 'Something went wrong',error});
     }
     
 }

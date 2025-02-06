@@ -6,21 +6,21 @@ const signup = async (req,res) => {
     const {firstName, lastName, email, password, confirmPassword, phoneNumber} = req.body;
 
     if(password != confirmPassword){
-        return res.json({message: 'Passwords do not match'});
+        return res.status(400).json({message: 'Passwords do not match'});
     }
     try {
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(password,salt);
         const user = new User({firstName,lastName,email,password:hashedPassword,phoneNumber});
         await user.save();
-        res.json({message : 'User created successfully!'});
+        res.status(200).json({message : 'User created successfully!'});
     }
-    catch(err){
+    catch(error){
         if(await User.findOne({email})){
-            return res.json({ message: 'Email already exists!' });
+            return res.status(400).json({ message: 'Email already exists!' });
         }
         else{
-            res.json({error: err.message});
+            res.status(500).json({ message: 'Something went wrong', error });
         }
     }
     
