@@ -6,9 +6,9 @@ const saltRounds = 10;
 
 
 const resetPass = async (req,res)=>{
-    const {password, confirmPassword, token} = req.body;
+    const {password, confirmPassword, resetToken} = req.body;
 
-    if(!password || !confirmPassword || !token){
+    if(!password || !confirmPassword || !resetToken){
         return res.status(400).json({ message: 'password, confirmPassword and token are required' });
     }
 
@@ -20,9 +20,14 @@ const resetPass = async (req,res)=>{
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(password,salt);
 
-        const decodedToken = jwt.verify(token,process.env.JWT_SECRET);
+        const decodedToken = jwt.verify(resetToken,process.env.JWT_SECRET);
         const email = decodedToken.email;
+        const verify = decodedToken.verify;
 
+        if(!verify){
+            return res.status(400).json({ message: 'OTP verification required' });
+        }
+        
         const user = await User.findOne({ email });
         user.password = hashedPassword;
         await user.save();

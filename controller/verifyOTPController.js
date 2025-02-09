@@ -24,7 +24,9 @@ const verifyOTP = async (req,res) => {
         }
 
         await OTP.deleteOne({email});
-        res.status(200).json({ message: 'OTP verified successfully!' ,token});
+
+        const resetToken = jwt.sign({email, verify: true},process.env.JWT_SECRET);
+        res.status(200).json({ message: 'OTP verified successfully!' ,resetToken});
     } catch (error) {
         res.status(500).json({ message: 'Invalid or expired token', error });
     }

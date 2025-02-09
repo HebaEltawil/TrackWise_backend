@@ -38,7 +38,7 @@ const sendOTP = async (req,res) => {
         const hashedOTP = await bcrypt.hash(otp,salt);
         const otpSaved = new OTP({email,otp:hashedOTP});
         await otpSaved.save();
-        const token = jwt.sign({email}, process.env.JWT_SECRET);
+        const token = jwt.sign({email,verify: false}, process.env.JWT_SECRET);
         const mailOptions = {
             from: process.env.AUTH_EMAIL,
             to: email,
