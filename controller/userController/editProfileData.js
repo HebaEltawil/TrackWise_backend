@@ -1,8 +1,10 @@
 const User = require('../../model/usersModel');
 
 const editData = async (req,res) => {
+    
+    const userId = req.userId;
+    const { firstName, lastName, phoneNumber } = req.body;
     try {
-        const { userId, firstName, lastName, phoneNumber }= req.body;
 
         let user = await User.findById(userId);
         if(!user){
@@ -13,8 +15,17 @@ const editData = async (req,res) => {
         if(lastName) user.lastName = lastName;
         if(phoneNumber) user.phoneNumber = phoneNumber;
 
-        await user.save;
-        res.status(200).json({ message: "Profile updated successfully", user });
+        await user.save();
+
+        res.status(200).json(
+            { message: "Profile updated successfully", 
+              user: {
+                      email: user.email,
+                      firstName: user.firstName,
+                      lastName: user.lastName,
+                      phoneNumber: user.phoneNumber
+                    } 
+            });
 
     } catch (error) {
         res.status(500).json({ message: error.message });

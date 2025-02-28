@@ -2,7 +2,8 @@ const User = require('../../model/usersModel');
 
 
 const sendRequest = async (req, res) => {
-    const { senderEmail, receiverEmail } = req.body;
+    const senderEmail = req.userEmail;
+    const { receiverEmail } = req.body;
 
     try {
         const sender = await User.findOne({email: senderEmail});

@@ -2,7 +2,8 @@ const User= require('../../model/usersModel');
 
 
 const rejectRequest = async (req, res) => {
-    const { userEmail, senderEmail } = req.body;
+    const userEmail = req.userEmail;
+    const {  senderEmail } = req.body;
 
     try {
         const user = await User.findOne({ email: userEmail });
