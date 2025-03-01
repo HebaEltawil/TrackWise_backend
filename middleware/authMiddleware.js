@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const extractEmailFromToken = (req, res, next) => {
+const extractFromToken = (req, res, next) => {
     const token = req.headers['authorization'];
     // const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer <token>"
 
@@ -19,4 +19,4 @@ const extractEmailFromToken = (req, res, next) => {
     }
 };
 
-module.exports = extractEmailFromToken;
+module.exports = extractFromToken;
