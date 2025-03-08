@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
     phoneNumber:{type:String , required:true},
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     sentRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], 
-    receivedRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    receivedRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    usage: {type:Map, of:mongoose.Schema.Types.Mixed},
+    steps: {type:Map, of:Number}
 });
 
 module.exports = mongoose.model('User', userSchema);
