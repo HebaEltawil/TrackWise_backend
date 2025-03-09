@@ -2,7 +2,8 @@ const express = require('express');
 const connectDB = require('./config/mongodb');
 const loginSignUpRouter = require('./routes/login_signupRouter');
 const forgetPassRouter = require('./routes/forgetPassRouter');
-const userRouter = require('./routes/userRouter')
+const userRouter = require('./routes/userRouter');
+const usageRouter = require('./routes/usageRouter');
 const cors = require('cors');
 const port = 3000;
 
@@ -17,7 +18,7 @@ app.use(cors());
 app.use('/api',loginSignUpRouter);
 app.use('/api',forgetPassRouter);
 app.use('/api',userRouter);
-
+app.use('/api',usageRouter);
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
