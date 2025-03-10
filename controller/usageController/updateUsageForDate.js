@@ -11,7 +11,7 @@ const updateUsageForDate = async (req,res)=>{
 
         user.usage.set(date,usageData);
         await user.save();
-        res.status(200).json({message: `Usage updated for ${date} successfully!`, user});
+        res.status(200).json({message: `Usage updated for ${date} successfully!`, usage: user.usage});
     } catch (error) {
         res.status(500).json({message: 'Internal server error', error});
     }

@@ -14,7 +14,7 @@ const addUsage = async (req,res)=>{
             user.usage.set(date,usageData);
         }
         await user.save();
-        res.status(200).json({message: 'Usage added successfully!', user});
+        res.status(200).json({message: 'Usage added successfully!', usage: user.usage});
     } catch (error) {
         res.status(500).json({message: 'Internal server error', error});
     }
