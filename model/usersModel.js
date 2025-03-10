@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     sentRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], 
     receivedRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    usage: {type:Map, of:mongoose.Schema.Types.Mixed},
-    steps: {type:Map, of:Number}
+    usage: {type:Map, of:mongoose.Schema.Types.Mixed, default:{}},
+    steps: {type:Map, of:Number, default:{}}
 });
 
 module.exports = mongoose.model('User', userSchema);

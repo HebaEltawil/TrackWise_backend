@@ -10,7 +10,9 @@ const addUsage = async (req,res)=>{
         }
 
         const usageMap = new Map(Object.entries(usage));
-        user.usage = usageMap;
+        for(const [date,usageData] of usageMap){
+            user.usage.set(date,usageData);
+        }
         await user.save();
         res.status(200).json({message: 'Usage added successfully!', user});
     } catch (error) {
