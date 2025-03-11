@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const extractFromToken = (req, res, next) => {
     const token = req.headers['authorization'];
-    // const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer <token>"
+    //const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer <token>"
 
     if (!token) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
