@@ -18,7 +18,7 @@ const addSteps = async (req,res) => {
         user.steps.set(date, steps);
         await user.save();
 
-        res.status(200).json({ message: "Steps updated successfully", steps: user.steps });
+        res.status(200).json({ message: "Steps added successfully", steps: user.steps });
     } catch (error) {
         console.error('Error in adding steps:', error);
         res.status(500).json({ message: 'Internal server error' });
