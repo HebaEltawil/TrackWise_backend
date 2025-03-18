@@ -1,14 +1,16 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../model/usersModel');
+const User = require('../../model/usersModel');
 const saltRounds = 10;
 
 
 const resetPass = async (req,res)=>{
-    const {password, confirmPassword, resetToken} = req.body;
+    const {password, confirmPassword} = req.body;
+    const email = req.userEmail; 
+    const verify = req.verify; 
 
-    if(!password || !confirmPassword || !resetToken){
+    if(!password || !confirmPassword ){
         return res.status(400).json({ message: 'password, confirmPassword and token are required' });
     }
 
@@ -19,15 +21,9 @@ const resetPass = async (req,res)=>{
     try {
         const salt = await bcrypt.genSalt(saltRounds);
         const hashedPassword = await bcrypt.hash(password,salt);
-
-        const decodedToken = jwt.verify(resetToken,process.env.JWT_SECRET);
-        const email = decodedToken.email;
-        const verify = decodedToken.verify;
-
         if(!verify){
             return res.status(400).json({ message: 'OTP verification required' });
         }
-        
         const user = await User.findOne({ email });
         user.password = hashedPassword;
         await user.save();

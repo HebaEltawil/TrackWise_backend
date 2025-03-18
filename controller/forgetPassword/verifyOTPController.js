@@ -1,19 +1,17 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const OTP = require('../model/otpModel');
+const OTP = require('../../model/otpModel');
 
 const verifyOTP = async (req,res) => {
-    const {otp, token} = req.body;
+    const {otp} = req.body;
+    const email = req.userEmail;
 
-    if(!otp||!token){
-        return res.status(400).json({ message: 'OTP and token are required' });
+    if(!otp){
+        return res.status(400).json({ message: 'OTP are required' });
     }
     try {
-        const decodedToken = jwt.verify(token,process.env.JWT_SECRET);
-        const email = decodedToken.email;
-
-        const findOTP = await OTP.findOne({email});
+        const findOTP = await OTP.findOne({email: email});
         if(!findOTP){
             return res.status(400).json({ message: 'OTP expired or not found' });
         }
@@ -23,7 +21,7 @@ const verifyOTP = async (req,res) => {
             return res.status(400).json({ message: 'Invalid OTP' });
         }
 
-        await OTP.deleteOne({email});
+        await OTP.deleteOne({email:email});
 
         const resetToken = jwt.sign({email, verify: true},process.env.JWT_SECRET);
         res.status(200).json({ message: 'OTP verified successfully!' ,resetToken});
