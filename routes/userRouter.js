@@ -8,7 +8,9 @@ const rejectRequest = require('../controller/userController/rejectRequest');
 const getAllFriends = require('../controller/userController/allFriendsController');
 const getAllRequests = require('../controller/userController/allRequestsController');
 const removeFriend = require('../controller/userController/removeFriendController');
-const findUserByEmail = require('../controller/userController/findUserController')
+const findUserByEmail = require('../controller/userController/findUserController');
+const scores = require('../controller/scores/friendsScores');
+const userScore = require('../controller/scores/userScore');
 
 router.put('/editProfileData', extractFromToken, editData.editData);
 router.post('/sendRequest',extractFromToken, sendRequest.sendRequest);
@@ -17,5 +19,6 @@ router.post('/rejectRequest',extractFromToken, rejectRequest.rejectRequest);
 router.get('/getAllFriends',extractFromToken,getAllFriends);
 router.get('/getAllRequests',extractFromToken,getAllRequests);
 router.post('/unfriend',extractFromToken,removeFriend);
-router.post('/findUserByEmail',findUserByEmail)
+router.post('/findUserByEmail',findUserByEmail);
+router.post('/scores',extractFromToken,scores);
 module.exports = router;
