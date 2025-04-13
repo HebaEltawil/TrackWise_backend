@@ -21,7 +21,10 @@ const UserScore = (user, today) =>{
 
         return {name : user.firstName + " " + user.lastName,
             email: user.email,
-            score:totalScore};
+            score:totalScore,
+            steps: steps,
+            usage: usageTimeSum
+        };
     } catch (error) {
         res.status(500).json({ error });
     }

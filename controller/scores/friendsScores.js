@@ -31,7 +31,9 @@ const scores = async (req,res)=>{
             friendsScores.push({
                 name : friend.firstName + " " + friend.lastName,
                 email: friend.email,
-                score: totalScore
+                score: totalScore,
+                steps: steps,
+                usage: usageTimeSum
             })
         }
         res.status(200).json({User:userScore(user,today),friendsScores});
