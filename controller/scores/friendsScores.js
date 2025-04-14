@@ -1,5 +1,5 @@
 const User= require('../../model/usersModel');
-const userScore = require('./userScore');
+const UserScore = require('./userScore');
 
 
 const scores = async (req,res)=>{
@@ -19,9 +19,10 @@ const scores = async (req,res)=>{
                 for(const app of todayUsage){
                     usageTimeSum += app.usageMinutes;
                 }
-                // usageTimeSum = usageTimeSum/60;
-                usageTimeSum = usageTimeSum.inMinutes.remainder(60)
+                usageTimeSum = usageTimeSum/60;
             }
+            const hour = Math.floor(usageTimeSum);
+            const minutes = Math.ceil((usageTimeSum - hour) * 60);
             let steps = 0;
             if(friend.steps && friend.steps.get(today)){
                 steps = friend.steps.get(today);
@@ -34,12 +35,12 @@ const scores = async (req,res)=>{
                 email: friend.email,
                 score: totalScore,
                 steps: steps,
-                usage: usageTimeSum
+                usage: `${hour}hrs ${minutes}mins`
             })
         }
-        res.status(200).json({User:userScore(user,today),friendsScores});
+        res.status(200).json({User:UserScore(user, today) , friendsScores});
     } catch (error) {
-        res.status(500).json({ message: 'Invalid or expired token', error });
+        res.status(500).json({ message: 'Server error', error: error.message});
     }
 
 }

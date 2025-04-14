@@ -9,8 +9,10 @@ const UserScore = (user, today) =>{
                 for(const app of todayUsage){
                     usageTimeSum += app.usageMinutes;
                 }
-                usageTimeSum = usageTimeSum.inMinutes.remainder(60);
+                usageTimeSum = usageTimeSum/60;
             }
+            const hour = Math.floor(usageTimeSum);
+            const minutes = Math.ceil((usageTimeSum - hour) * 60);
             let steps = 0;
             if(user.steps && user.steps.get(today)){
                 steps = user.steps.get(today);
@@ -19,14 +21,14 @@ const UserScore = (user, today) =>{
             const stepsScore = Math.min(steps/12000,1);
             const totalScore = (usageScore * 70) + (stepsScore * 30);
 
-        return {name : user.firstName + " " + user.lastName,
+        return {name : `${user.firstName} ${user.lastName}`,
             email: user.email,
             score:totalScore,
             steps: steps,
-            usage: usageTimeSum
+            usage: `${hour}hrs ${minutes}mins`
         };
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ message: 'Server error', error: error.message});
     }
 
 }

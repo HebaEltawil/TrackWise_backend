@@ -7,6 +7,9 @@ const findUserByEmail = async (req,res)=>{
     }
     try {
         const user = await User.findOne({ email },{firstName:1, lastName:1, email:1, phoneNumber:1});
+        if(!user){
+            return res.status(404).json({ message: 'User not found' });
+        }
         res.status(200).json({user});
     } catch (error) {
         res.status(500).json({ message: 'Internal server error', error });
