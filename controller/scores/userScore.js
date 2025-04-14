@@ -9,7 +9,7 @@ const UserScore = (user, today) =>{
                 for(const app of todayUsage){
                     usageTimeSum += app.usageMinutes;
                 }
-                usageTimeSum = usageTimeSum/60;
+                usageTimeSum = usageTimeSum.inMinutes.remainder(60);
             }
             let steps = 0;
             if(user.steps && user.steps.get(today)){
