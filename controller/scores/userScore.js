@@ -21,15 +21,15 @@ const UserScore = (user, today) =>{
             const usageScore = Math.max((1-(usageTimeSum/12)),0);
             const stepsScore = Math.min(steps/12000,1);
             const totalScore = (usageScore * 70) + (stepsScore * 30);
-
         return {name : `${user.firstName} ${user.lastName}`,
             email: user.email,
             score:totalScore,
             steps: steps,
             usage: usageDouble
         };
+        
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message});
+        throw new Error(`Server error: ${error.message}`);
     }
 
 }
