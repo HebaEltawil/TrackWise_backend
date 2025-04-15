@@ -12,7 +12,8 @@ const UserScore = (user, today) =>{
                 usageTimeSum = usageTimeSum/60;
             }
             const hour = Math.floor(usageTimeSum);
-            const minutes = Math.ceil((usageTimeSum - hour) * 60);
+            const minutes = Math.round((usageTimeSum - hour) * 60);
+            const usageDouble = parseFloat(`${hour}.${minutes < 10 ? '0' : ''}${minutes}`);
             let steps = 0;
             if(user.steps && user.steps.get(today)){
                 steps = user.steps.get(today);
@@ -25,7 +26,7 @@ const UserScore = (user, today) =>{
             email: user.email,
             score:totalScore,
             steps: steps,
-            usage: `${hour}hrs ${minutes}mins`
+            usage: usageDouble
         };
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message});
