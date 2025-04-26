@@ -18,7 +18,7 @@ const extractFromToken =  async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.userEmail = decoded.email; 
         req.verify = decoded.verify;
-        req.exp = decoded.exp;
+        req.exp = decoded.expiresIn;
         req.token = token;
 
         next();
