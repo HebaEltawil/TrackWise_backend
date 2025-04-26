@@ -10,7 +10,8 @@ const getAllRequests = require('../controller/userController/allRequestsControll
 const removeFriend = require('../controller/userController/removeFriendController');
 const findUserByEmail = require('../controller/userController/findUserController');
 const scores = require('../controller/scores/friendsScores');
-const scoresWithSpecificDate = require('../controller/scores/scoresWithSpecificDate')
+const scoresWithSpecificDate = require('../controller/scores/scoresWithSpecificDate');
+const getAllUsers = require('../controller/userController/allUsersController');
 
 router.put('/editProfileData', extractFromToken, editData.editData);
 router.post('/sendRequest',extractFromToken, sendRequest.sendRequest);
@@ -22,4 +23,5 @@ router.post('/unfriend',extractFromToken,removeFriend);
 router.post('/findUserByEmail',findUserByEmail);
 router.get('/scores',extractFromToken,scores);
 router.get('/scoresWithDate',extractFromToken,scoresWithSpecificDate);
+router.get('/getAllUsers',getAllUsers);
 module.exports = router;

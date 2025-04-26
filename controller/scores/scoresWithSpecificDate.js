@@ -23,7 +23,8 @@ const scores = async (req,res)=>{
 
             }
             const hour = Math.floor(usageTimeSum);
-            const minutes = Math.ceil((usageTimeSum - hour) * 60);
+            const minutes = Math.round((usageTimeSum - hour) * 60);
+            const usageDouble = parseFloat(`${hour}.${minutes < 10 ? '0' : ''}${minutes}`);
             let steps = 0;
             if(friend.steps && friend.steps.get(date)){
                 steps = friend.steps.get(date);
@@ -36,7 +37,7 @@ const scores = async (req,res)=>{
                 email: friend.email,
                 score: totalScore,
                 steps: steps,
-                usage: `${hour}hrs ${minutes}mins`
+                usage: usageDouble
             })
         }
         res.status(200).json({User:userScore(user,date),friendsScores});
