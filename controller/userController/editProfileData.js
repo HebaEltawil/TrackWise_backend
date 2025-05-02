@@ -19,11 +19,11 @@ const editData = async (req,res) => {
 
         res.status(200).json(
             { message: "Profile updated successfully", 
-              user: {
-                      email: user.email,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      phoneNumber: user.phoneNumber
+                user: {
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        phoneNumber: user.phoneNumber
                     } 
             });
 
