@@ -5,6 +5,7 @@ const forgetPassRouter = require('./routes/forgetPassRouter');
 const userRouter = require('./routes/userRouter');
 const usageRouter = require('./routes/usageRouter');
 const stepsRouter = require('./routes/stepsRouter');
+const adminRouter = require('./routes/adminRouter');
 const cors = require('cors');
 const port = 3000;
 
@@ -20,6 +21,7 @@ app.use('/api', forgetPassRouter);
 app.use('/api', userRouter);
 app.use('/api', usageRouter);
 app.use('/api', stepsRouter);
+app.use('/api/admin',adminRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
