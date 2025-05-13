@@ -8,6 +8,7 @@ const getAllUsers = require('../controller/adminController/getAllUsers');
 const deleteUser = require('../controller/adminController/deleteUser');
 const addTag = require('../controller/adminController/addTags');
 const allTags = require('../controller/adminController/getAllTags');
+const resetPass = require('../controller/adminController/resetPass');
 
 router.post('/login', login);
 router.post('/logout', extractFromToken, logout);
@@ -16,5 +17,6 @@ router.get('/allUsers', extractFromToken, getAllUsers);
 router.delete('/deleteUser', extractFromToken, deleteUser);
 router.post('/addTag', extractFromToken, addTag);
 router.get('/allTags', extractFromToken, allTags);
+router.post('/reset-password',extractFromToken, resetPass);
 
 module.exports = router;
