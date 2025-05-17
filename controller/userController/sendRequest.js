@@ -17,6 +17,10 @@ const sendRequest = async (req, res) => {
             return res.status(400).json({ message: 'Friend request already sent' });
             
         }
+
+        if(sender.receivedRequests.includes(receiver._id)){
+            return res.status(400).json({ message: 'This user already sent you a request' });
+        }
         
         if(sender.friends.includes(receiver._id)){
             return res.status(400).json({ message: 'You are already friends !' });
