@@ -20,7 +20,7 @@ router.post('/rejectRequest',extractFromToken, rejectRequest.rejectRequest);
 router.get('/getAllFriends',extractFromToken,getAllFriends);
 router.get('/getAllRequests',extractFromToken,getAllRequests);
 router.post('/unfriend',extractFromToken,removeFriend);
-router.post('/findUserByEmail',findUserByEmail);
+router.post('/findUserByEmail', extractFromToken, findUserByEmail);
 router.get('/scores',extractFromToken,scores);
 router.get('/scoresWithDate',extractFromToken,scoresWithSpecificDate);
 router.get('/getAllUsers',getAllUsers);
