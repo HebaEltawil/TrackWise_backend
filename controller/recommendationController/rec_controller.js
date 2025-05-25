@@ -20,6 +20,9 @@ const recommendApps = async (req,res) => {
         });
 
         const neighborsInfo = response.data.neighbors_info;
+        if (!neighborsInfo || neighborsInfo.length === 0) {
+            return res.status(404).json({ error: 'No recommended app found' });
+        }
 
         res.status(200).json({ recommended_app: neighborsInfo[0] });
 
