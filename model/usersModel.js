@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     receivedRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     usage: {type:Map, of:mongoose.Schema.Types.Mixed, default:{}},
     steps: {type:Map, of:Number, default:{}},
-    tags: { type: Map, of: mongoose.Schema.Types.ObjectId, ref: 'Tag', default: {} },
+    tags:  [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}]
 });
 
 module.exports = mongoose.model('User', userSchema);
