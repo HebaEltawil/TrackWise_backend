@@ -3,7 +3,6 @@ const Tag = require('../../model/tagsModel');
 
 const allTags = async (req,res) =>{
     const email = req.userEmail;
-    const {label, icon, color} = req.body;
     const isAdmin = await Admin.findOne({email: email}); 
     if(!isAdmin){
         return res.status(400).json({ message: 'Invalid Admin' });
