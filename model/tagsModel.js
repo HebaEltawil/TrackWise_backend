@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const tagSchema = new mongoose.Schema({
-    label:{type:String , required:true, unique:true },
-    icon:{ type:String , required:true },
-    color:{ type:String , required:true }
+    name:{type:String , required:true, unique:true },
+    image:{ type:String , required:true },
+    steps:{ type:Number , required:true }
 });
 
 module.exports = mongoose.model('Tag', tagSchema);

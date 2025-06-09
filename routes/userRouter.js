@@ -12,7 +12,8 @@ const findUserByEmail = require('../controller/userController/findUserController
 const scores = require('../controller/scores/friendsScores');
 const scoresWithSpecificDate = require('../controller/scores/scoresWithSpecificDate');
 const getAllUsers = require('../controller/userController/allUsersController');
-
+//const assignTag = require('../controller/assignTag/assignTag');
+const userTag = require('../controller/assignTag/userTag')
 router.put('/editProfileData', extractFromToken, editData.editData);
 router.post('/sendRequest',extractFromToken, sendRequest.sendRequest);
 router.post('/acceptRequest',extractFromToken, acceptRequest.acceptRequest);
@@ -24,4 +25,6 @@ router.post('/findUserByEmail', extractFromToken, findUserByEmail);
 router.get('/scores',extractFromToken,scores);
 router.post('/scoresWithDate',extractFromToken,scoresWithSpecificDate);
 router.get('/getAllUsers',getAllUsers);
+//router.post('/assignTag',extractFromToken,assignTag);
+router.get('/getUserTag',extractFromToken, userTag);
 module.exports = router;
