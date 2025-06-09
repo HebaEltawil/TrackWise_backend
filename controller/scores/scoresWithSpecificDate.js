@@ -4,7 +4,7 @@ const userScore = require('./userScore');
 
 const scores = async (req,res)=>{
     const userEmail = req.userEmail;
-    const {date} = req.body;
+    const date = req.body.date || new Date().toISOString().split('T')[0];
     try {
         const user = await User.findOne({email:userEmail}).populate('friends');
         if(!user){

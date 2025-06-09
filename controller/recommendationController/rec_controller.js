@@ -2,6 +2,7 @@ const User = require('../../model/usersModel');
 const axios = require('axios');
 
 const recommendApps = async (req,res) => {
+
     const email = req.userEmail;
     try {
         const user = await User.findOne({ email: email });
@@ -14,12 +15,13 @@ const recommendApps = async (req,res) => {
 
         const usageList = user.usage.get(formatted);
         const packageNames = usageList.slice(0, 5).map(app => app.packageName);
-
+        console.log(packageNames)
           const response = await axios.post('http://127.0.0.1:9000/recommend_by_packages', {
             package_names: packageNames
         });
 
         const neighborsInfo = response.data.neighbors_info;
+        console.log(neighborsInfo);
         if (!neighborsInfo || neighborsInfo.length === 0) {
             return res.status(404).json({ error: 'No recommended app found' });
         }

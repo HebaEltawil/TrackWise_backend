@@ -8,7 +8,7 @@ const stepsRouter = require('./routes/stepsRouter');
 const adminRouter = require('./routes/adminRouter');
 const recommendationRouter = require('./routes/recommendation_router');
 const cors = require('cors');
-const port = 3000;
+const port = 5000;
 
 // Connect to database
 connectDB;
