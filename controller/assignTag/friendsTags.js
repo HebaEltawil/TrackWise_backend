@@ -1,24 +1,23 @@
-// const friendsTags = async (friends, date, allTags) =>{
-//     const updatedFriends = await Promise.all(
-//         friends.map( async friend => {
-//         const friendSteps = friend.steps?.get(date) || 0;
-//         const friendTag = allTags.filter(tag => friendSteps >= tag.steps).sort((a, b) => b.steps - a.steps)[0];
-//         if (friendTag && friend.tags?.get(date)?.toString() !== friendTag._id.toString()) {
-//                 friend.tags.set(date, friendTag._id);
-//                 await friend.save();
-//             }
-//         return {
-//             name : friend.firstName + " " + friend.lastName,
-//             email: friend.email,
-//             steps: friendSteps,
-//             tag: friendTag ? {
-//                 name: friendTag.name,
-//                 image: friendTag.image,
-//                 steps: friendTag.steps
-//             } : null 
-//         };
-//     }));
-//     return updatedFriends;
-// };
+const friendsTags = async (friends, date, allTags) =>{
+    const updatedFriends = await Promise.all(
+        friends.map( async friend => {
+        const friendSteps = friend.steps?.get(date) || 0;
+        const friendTag = allTags.filter(tag => friendSteps >= tag.steps).sort((a, b) => b.steps - a.steps)[0];
+        if (friendTag &&!friend.tags.map(tag => tag.toString()).includes(friendTag._id.toString())) {
+                friend.tags.push(friendTag._id);
+                await friend.save();
+            }
+        const updatedFriend = await friend.populate('tags');
+        return {
+            email: friend.email,
+            friendsTags: updatedFriend.tags.map(tag => ({
+                name: tag.name,
+                image: tag.image,
+                steps: tag.steps
+            })) 
+        };
+    }));
+    return updatedFriends;
+};
 
-// module.exports = friendsTags;
+module.exports = friendsTags;
