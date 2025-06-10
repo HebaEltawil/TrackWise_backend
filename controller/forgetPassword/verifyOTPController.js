@@ -11,7 +11,7 @@ const verifyOTP = async (req,res) => {
         return res.status(400).json({ message: 'OTP are required' });
     }
     try {
-        const findOTP = await OTP.findOne({email: email});
+       const findOTP = await OTP.findOne({ email }).sort({ createdAt: -1 });
         if(!findOTP){
             return res.status(400).json({ message: 'OTP expired or not found' });
         }
