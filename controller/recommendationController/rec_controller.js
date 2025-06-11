@@ -14,7 +14,7 @@ const recommendApps = async (req,res) => {
         const formatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
         const usageList = user.usage.get(formatted);
-        const packageNames = usageList.slice(0, 5).map(app => app.packageName);
+        const packageNames = usageList.sort((a, b) => b.usageMinutes - a.usageMinutes).slice(0, 5).map(app => app.packageName);
         console.log(packageNames)
           const response = await axios.post('http://127.0.0.1:9000/recommend_by_packages', {
             package_names: packageNames
