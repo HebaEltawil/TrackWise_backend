@@ -18,13 +18,11 @@ const userTag = async (req, res) => {
         }
 
         const assignedTag = allTags.filter(tag => userSteps >= tag.steps).sort((a, b) => b.steps - a.steps)[0];
-        if(!assignedTag){
-            return res.status(200).json({message: 'User has not achieved the required number of steps for any tag'});
-        }
-        
-        if(!user.tags.map(tag => tag.toString()).includes(assignedTag._id.toString())){
-            user.tags.push(assignedTag._id);
-            await user.save();
+        if(assignedTag){
+            if(!user.tags.map(tag => tag.toString()).includes(assignedTag._id.toString())){
+                user.tags.push(assignedTag._id);
+                await user.save();
+            }
         }
         const updatedUser = await User.findById(user._id).populate('tags');
         return res.status(200).json({message: 'Get User Tags successfully', tags: updatedUser.tags});

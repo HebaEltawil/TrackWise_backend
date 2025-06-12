@@ -24,7 +24,6 @@ router.post('/unfriend',extractFromToken,removeFriend);
 router.post('/findUserByEmail', extractFromToken, findUserByEmail);
 router.get('/scores',extractFromToken,scores);
 router.post('/scoresWithDate',extractFromToken,scoresWithSpecificDate);
-router.get('/getAllUsers',getAllUsers);
 router.get('/tags',extractFromToken,tags);
 router.get('/getUserTag',extractFromToken, userTag);
 module.exports = router;
